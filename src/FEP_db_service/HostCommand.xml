@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="GBK" ?>
+
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="HostCommand">
+
+	<!-- 主站操作命令的查询结果映射 -->
+	<resultMap id="host-command-map" class="com.hzjbbis.fas.model.HostCommand">
+		<result property="id" column="ID"/>
+		<result property="taskId" column="TASK_ID"/>
+		<result property="rtuId" column="RTU_ID"/>
+		<result property="paramCount" column="PARAM_COUNT"/>
+		<result property="requestTime" column="REQUEST_TIME"/>
+		<result property="responseTime" column="RESPONSE_TIME"/>
+		<result property="status" column="STATUS"/>
+		<result property="errcode" column="FHM"/>
+		<result property="results" column="ID" select="getCommandResults"/>
+	</resultMap>
+
+	<!-- 主站操作命令结果的查询结果映射 -->
+	<resultMap id="host-command-result-map" class="com.hzjbbis.fas.model.HostCommandResult">
+		<result property="commandId" column="COMMAND_ID"/>
+		<result property="tn" column="TN"/>
+		<result property="alertCode" column="ALERT_CODE"/>
+		<result property="code" column="CODE"/>
+		<result property="value" column="VALUE"/>
+		<result property="time" column="TIME"/>
+		<result property="programTime" column="PROGRAM_TIME"/>
+		<result property="channel" column="CHANNEL"/>
+	</resultMap>	
+
+	<!-- 创建一条主站操作命令结果 -->
+	<insert id="createHostCommandResult" parameterClass="com.hzjbbis.fas.model.HostCommandResult">
+		INSERT INTO ZZCZ_MLJG( MLJGID,
+				MLID,
+				CLDH,
+				GJBM,
+				SJX,
+				SJZ,
+				SJSJ,
+				BCSJ,
+				TD )
+		VALUES( S_ZZCZ_MLJG.NEXTVAL,
+				#commandId:NUMERIC#,
+				#tn:VARCHAR#,
+				#alertCode:VARCHAR#,
+				#code:VARCHAR#,
+				#value:VARCHAR#,
+				#time:TIMESTAMP#,
+				#programTime:TIMESTAMP#,
+				#channel:VARCHAR# )
+	</insert>
+
+	<!-- 更新主站操作命令及任务状态。参数为主站操作命令ID -->
+	<procedure id="updateCommandStatus" parameterClass="com.hzjbbis.fas.model.HostCommand">
+		{call comm_service.update_command_status(#id,jdbcType=NUMERIC,mode=IN#, #status,jdbcType=VARCHAR,mode=IN#, #errcode,jdbcType=VARCHAR,mode=IN#,#messageCount,jdbcType=NUMERIC,mode=IN#)}
+	</procedure>
+
+	<!-- 更新主站操作命令的参数设置结果 -->
+	<procedure id="updateParamResultValue" parameterClass="com.hzjbbis.fas.model.HostCommandResult">
+		{call comm_service.update_param_result_value(#commandId,jdbcType=NUMERIC,mode=IN#, #code,jdbcType=VARCHAR,mode=IN#, #svalue,jdbcType=VARCHAR,mode=IN#, #status,jdbcType=NUMERIC,mode=IN#)}
+	</procedure>
+	
+</sqlMap>

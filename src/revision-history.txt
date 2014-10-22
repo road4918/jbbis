@@ -1,0 +1,12 @@
+version 2.1
+    Date: 2008-12-30
+What's new
+  1) JSocket bug: _send function do not close socket when send packet to server get exception
+  2) JSocket : add log information for function : _closeSocket(); _connect();
+  3) FEP_Monitor project, ShutdownApp class updated, which can exit collectly after closing the monitored server.
+  4) FEP_Socket project, TcpSocketServer class line 186 updated, remove 'exit' by 'return' to avoid web container crash
+  5) FEP_Common project, FasSystem class updated, to support shutdown application in alternative to 'kill'
+
+  6) FEP_Communication project, FeCommunication class updated to put AsyncService and FiberManage into FasSystem's 
+	unMonitoredModules attribute, which can start and stop by Monitor client.
+	AsyncService and FiberManage can be set into unMonitoredModules of FasSystem by Spring configuration file.

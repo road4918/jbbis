@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="fasserver" default="run" basedir=".">
+	
+	<property name="fas.version" value="1.0" />
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="classes.dir" value="${basedir}/classes" />
+	<property name="lib.dir" value="${basedir}/libs" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="codec.jar.name" value="faal-codec-${fas.version}.jar" />
+	<property name="build.encoding" value="GBK" />
+	
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement path="${classes.dir}" />
+	</path>
+
+    <!-- =================================================================== -->
+    <!-- Clean generated class files                                         -->
+    <!-- =================================================================== -->
+    <target name="clean" description="Clean generated class files">
+        <delete dir="${classes.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+	
+	<!-- =================================================================== -->
+    <!-- Compile java source file                                            -->
+    <!-- =================================================================== -->
+    <target name="compile" description="Compile java file">
+    	<mkdir dir="${classes.dir}" />
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">			  
+			  <exclude name="**/*.java"/>
+			  <exclude name="**/CVS/**/*.*"/>
+			</fileset>
+		</copy>
+    	<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="project.classpath"
+    	    source="1.4" target="1.4" debug="true" encoding="${build.encoding}">
+    		<include name="**/*.java"/>
+    	</javac>
+    </target>    
+	
+	<!-- =================================================================== -->
+    <!-- Build distributed .jar file of message codec                        -->
+    <!-- =================================================================== -->
+	<target name="build-codec-jar" depends="compile" description="Build distributed jar">
+        <mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/${codec.jar.name}" />
+		<jar destfile="${dist.dir}/${codec.jar.name}" basedir="${classes.dir}" compress="false">
+			<include name="**/exception/*" />
+			<include name="**/protocol/codec/*" />
+			<include name="**/protocol/conf/*" />
+			<include name="**/protocol/data/*" />
+			<include name="**/protocol/zj/*" />
+			<include name="**/protocol/zj/conf/*" />
+			<include name="**/protocol/zjpb/conf/*" />
+			<include name="**/protocol/zj/parse/*" />
+			<include name="**/protocol/zj/viewer/*" />
+			<include name="**/util/*" />
+			<exclude name="**/*Test.class" />
+		</jar>
+	</target>
+
+</project>

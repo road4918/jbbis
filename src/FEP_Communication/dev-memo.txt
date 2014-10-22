@@ -1,0 +1,7 @@
+备注：
+1、终端的手机号码与数据库不一致，如何处理?
+2、终端的GPRS通道信息（外网接口IP地址）无法获取，如何处理？ 基本解决
+3、终端短信上行，短信通道与终端资产不一致，如何处理？
+4、终端工况更新未完成: fep-communication下com.hzjbbis.fk.fe.rtustatus.RtuStatusUpdate
+	数据库增加：fep-db-batch下，com.hzjbbis.db.rtu 增加interface RtuStatusUpdateDao
+5、终端未在缓存情况下，需要再次加载功能，未做。思路：加载一次，未成功，则生成ComRtu，确保通信高效。

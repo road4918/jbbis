@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="src" kind="src"/>
+	<classpathentry path="test" kind="src"/>
+	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
+	<classpathentry path="/FEP_Common" combineaccessrules="false" kind="src"/>
+	<classpathentry path="/FEP_Socket" combineaccessrules="false" kind="src"/>
+	<classpathentry path="lib/commons-collections.jar" kind="lib"/>
+	<classpathentry path="lib/commons-dbcp.jar" kind="lib"/>
+	<classpathentry path="lib/commons-logging.jar" kind="lib"/>
+	<classpathentry path="lib/commons-pool.jar" kind="lib"/>
+	<classpathentry path="lib/log4j-1.2.14.jar" kind="lib"/>
+	<classpathentry path="lib/ojdbc14.jar" kind="lib"/>
+	<classpathentry sourcepath="lib/spring-sources.jar" path="lib/spring.jar" kind="lib"/>
+	<classpathentry path="/FEP_Protocol_Processor" kind="src"/>
+	<classpathentry path="/FEP_db_service" kind="src"/>
+	<classpathentry path="lib/commons-beanutils-1.6.1.jar" kind="lib"/>
+	<classpathentry path="lib/spring-sources.jar" kind="lib"/>
+	<classpathentry path="bin" kind="output"/>
+</classpath>

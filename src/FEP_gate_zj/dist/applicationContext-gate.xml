@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Application context definition for PetClinic on JDBC.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+		xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xsi:schemaLocation="
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+			http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- ========================= 网关对象定义 ========================= -->
+	<bean id="gate.server.fe" class="com.hzjbbis.fk.sockserver.TcpSocketServer"
+		parent="ISocketServer">
+		<property name="name" value="前置10005"/>
+		<property name="port" value="10005"/>
+		<property name="ioThreadSize" value="2"/>
+		<property name="messageClass" value="com.hzjbbis.fk.message.gate.MessageGate"/>
+		<property name="writeFirstCount" value="100"/>
+		<property name="maxContinueRead" value="10"/>
+	</bean>
+	<bean id="gate.server.rtu.tcp" class="com.hzjbbis.fk.sockserver.TcpSocketServer"
+		parent="ISocketServer">
+		<property name="name" value="终端T-10002"/>
+		<property name="port" value="10002"/>
+		<property name="ioThreadSize" value="4"/>
+		<property name="txfs" value="02"/>
+	</bean>
+	<bean id="gate.server.rtu.udp"
+			class="com.hzjbbis.fk.sockserver.SyncUdpServer" parent="ISocketServer">
+		<property name="name" value="终端U-10003"/>
+		<property name="port" value="10003"/>
+		<property name="ioHandler" ref="iohandler.SimpleUdpIoHandler"/>
+		<property name="txfs" value="02"/>
+	</bean>
+	
+	<bean id="gate.event.handler.rtu.tcp"
+		class="com.hzjbbis.fk.gate.event.GateRTUEventHandler"
+		parent="SimpleEventHandler" >
+		<property name="name" value="终端T10002EH" />
+		<property name="source" ref="gate.server.rtu.tcp"/>
+		<property name="queue" ref="gate.messageQueue"/>
+		<property name="timeoutAlarm"><value>1</value></property>
+		<property name="minSize"><value>4</value></property>
+		<property name="maxSize"><value>20</value></property>
+	</bean>
+	<bean id="gate.event.handler.rtu.udp"
+		class="com.hzjbbis.fk.gate.event.GateRTUEventHandler"
+		parent="SimpleEventHandler" >
+		<property name="source" ref="gate.server.rtu.udp"/>
+		<property name="queue" ref="gate.messageQueue"/>
+		<property name="name" value="终端U10003EH" />
+		<property name="timeoutAlarm"><value>1</value></property>
+		<property name="minSize"><value>2</value></property>
+		<property name="maxSize"><value>20</value></property>
+	</bean>
+
+	<bean id="gate.event.handler.fe.tcp"
+		class="com.hzjbbis.fk.gate.event.GateFEEventHandler"
+		parent="SimpleEventHandler" >
+		<property name="source" ref="gate.server.fe"/>
+		<property name="queue" ref="gate.messageQueue"/>
+		<property name="name" value="前置10005EH" />
+		<property name="timeoutAlarm"><value>4</value></property>
+		<property name="minSize"><value>4</value></property>
+		<property name="maxSize"><value>20</value></property>
+		<property name="noConvert"><value>false</value></property>
+	</bean>
+
+	<bean id="gate.cacheQueue"
+			class="com.hzjbbis.fk.common.queue.CacheQueue">
+		<property name="maxSize" value="20000"/>
+		<property name="minSize" value="2000"/>
+		<property name="maxFileSize" value="20"/>
+		<property name="key" value="gate1"/>
+		<property name="messageLoader" ref="messageLoader.MessageZj"/>
+	</bean>
+	<bean id="gate.messageQueue"
+			class="com.hzjbbis.fk.gate.MessageQueue">
+		<property name="noConvert"><value>false</value></property>
+		<property name="queue" ref="gate.cacheQueue"/>
+	</bean>
+
+	<bean id="fasSystem" class="com.hzjbbis.fk.FasSystem"
+		init-method="initialize">
+		<property name="showProfile" value="true"/>
+		<property name="profileInterval" value="60"/>
+		<property name="memProfileInterval" value="300"/>
+		<property name="eventHooks">
+			<list>
+				<ref bean="gate.event.handler.rtu.tcp" />
+				<ref bean="gate.event.handler.rtu.udp" />
+				<ref bean="gate.event.handler.fe.tcp" />
+				<ref bean="monitor.event.handler" />
+			</list>
+		</property>
+		<property name="modules">
+			<list>
+				<ref bean="gate.server.rtu.tcp" />
+				<ref bean="gate.server.rtu.udp" />
+				<ref bean="gate.server.fe" />
+				<ref bean="monitor.server" />
+			</list>
+		</property>
+	</bean>
+
+</beans>

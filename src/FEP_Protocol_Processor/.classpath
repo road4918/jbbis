@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry path="src" kind="src"/>
+	<classpathentry path="org.eclipse.jdt.launching.JRE_CONTAINER" kind="con"/>
+	<classpathentry sourcepath="/JUNIT_HOME" path="JUNIT_HOME/junit.jar" kind="var"/>
+	<classpathentry path="test" kind="src"/>
+	<classpathentry path="config" kind="src"/>
+	<classpathentry path="/FEP_Common" kind="src"/>
+	<classpathentry path="libs/commons-logging-1.0.4.jar" kind="lib"/>
+	<classpathentry path="libs/log4j-1.2.14.jar" kind="lib"/>
+	<classpathentry path="libs/castor-0.9.9.1-xml.jar" kind="lib"/>
+	<classpathentry path="libs/commons-beanutils-1.6.1.jar" kind="lib"/>
+	<classpathentry path="libs/xercesImpl.jar" kind="lib"/>
+	<classpathentry path="classes" kind="output"/>
+</classpath>

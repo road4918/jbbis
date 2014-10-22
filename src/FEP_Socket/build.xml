@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="FK_Common" default="build-socket-jar" basedir=".">
+	
+	<property name="fk.version" value="2.0" />
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="classes.dir" value="${basedir}/bin" />
+	<property name="lib.dir" value="${basedir}/libs" />
+	<property name="dist.dir" value="${basedir}/dist" />
+	<property name="common.jar.name" value="fk-common-${fk.version}.jar" />
+	<property name="socket.jar.name" value="fk-socket-${fk.version}.jar" />
+	<property name="zjgate.jar.name" value="fk-zjgate-${fk.version}.jar" />
+	<property name="codec.jar.name" value="fk-codec-${fk.version}.jar" />
+	<property name="build.encoding" value="GBK" />
+	
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement path="${classes.dir}" />
+	</path>
+
+    <!-- =================================================================== -->
+    <!-- Clean generated class files                                         -->
+    <!-- =================================================================== -->
+    <target name="clean" description="Clean generated class files">
+        <delete dir="${classes.dir}" />
+        <delete dir="${dist.dir}" />
+    </target>
+	
+	<!-- =================================================================== -->
+    <!-- Compile java source file                                            -->
+    <!-- =================================================================== -->
+    <target name="compile" description="Compile java file">
+    	<mkdir dir="${classes.dir}" />
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.dir}">			  
+			  <exclude name="**/*.java"/>
+			  <exclude name="**/CVS/**/*.*"/>
+			</fileset>
+		</copy>
+    	<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref="project.classpath"
+    	    source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+    		<include name="**/*.java"/>
+    	</javac>
+    </target>
+
+	<!-- =================================================================== -->
+    <!-- Build distributed .jar file - FK_Socket                            -->
+    <!-- =================================================================== -->
+	<target name="build-socket-jar" depends="compile" description="Build FK_Socket jar">
+        <mkdir dir="${dist.dir}" />
+		<delete file="${dist.dir}/${socket.jar.name}" />
+		<jar destfile="${dist.dir}/${socket.jar.name}" basedir="${classes.dir}">
+			<include name="com/**" />
+		</jar>
+	</target>
+
+</project>

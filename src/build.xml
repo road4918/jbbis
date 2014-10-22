@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project name="fasserver" default="compile" basedir=".">
+  
+  <property name="fas.version" value="2.0" />
+
+  <property name="target.dir" value="target"/>  
+  <property name="shell.dir" value="shell"/>  
+  <property name="user.config.dir" value="${user.home}/.fep.config"/>
+  <property name="src.common.dir" value="${basedir}/FEP_Common/src" />
+  <property name="src.db_service.dir" value="${basedir}/FEP_db_service/src" />
+  <property name="src.socket.dir" value="${basedir}/FEP_Socket/src" />
+  <property name="src.monitor.dir" value="${basedir}/FEP_Monitor/src" />
+  <property name="src.protocol.dir" value="${basedir}/FEP_Protocol_Processor/src" />
+
+  <property name="src.bp.dir" value="${basedir}/FEP_BusinessProcessor/src" />
+  <property name="src.fe.dir" value="${basedir}/FEP_Communication/src" />
+  <property name="src.gate.dir" value="${basedir}/FEP_gate_zj/src" />
+
+  
+  <property name="bin.common.dir" value="${basedir}/FEP_Common/bin" />
+  <property name="bin.db_service.dir" value="${basedir}/FEP_db_service/bin" />
+  <property name="bin.socket.dir" value="${basedir}/FEP_Socket/bin" />
+  <property name="bin.monitor.dir" value="${basedir}/FEP_Monitor/bin" />
+  <property name="bin.protocol.dir" value="${basedir}/FEP_Protocol_Processor/bin" />
+
+  <property name="bin.bp.dir" value="${basedir}/FEP_BusinessProcessor/bin" />
+  <property name="bin.fe.dir" value="${basedir}/FEP_Communication/bin" />
+  <property name="bin.gate.dir" value="${basedir}/FEP_gate_zj/bin" />
+
+  <property name="lib.dir.common" value="${basedir}/FEP_Common/libs" />
+  <property name="lib.dir.db_service" value="${basedir}/FEP_db_service/libs" />
+  <property name="lib.dir.socket" value="${basedir}/FEP_Socket/libs" />
+  <property name="lib.dir.monitor" value="${basedir}/FEP_Monitor/libs" />
+  <property name="lib.dir.protocol" value="${basedir}/FEP_Protocol_Processor/libs" />
+  <property name="lib.dir.bp" value="${basedir}/FEP_BusinessProcessor/libs" />
+  <property name="lib.dir.fe" value="${basedir}/FEP_Communication/libs" />
+  <property name="lib.dir.gate" value="${basedir}/FEP_gate_zj/libs" />
+
+  <property name="mysql.jar" value="${lib.dir.db_service}/mysql-connector-java-5.1.0-bin.jar"/>
+  <property name="commons-lang.jar" value="${lib.dir.db_service}/commons-lang.jar"/>
+  <property name="proxool.jar" value="${lib.dir.db_service}/proxool-0.9.1.jar"/>
+  <property name="proxool-cglib.jar" value="${lib.dir.db_service}/proxool-cglib.jar"/>
+  <property name="commons-dbcp.jar" value="${lib.dir.db_service}/commons-dbcp.jar"/>
+  <property name="castor-xml.jar" value="${lib.dir.protocol}/castor-0.9.9.1-xml.jar"/>
+  <property name="xercesImpl.jar" value="${lib.dir.protocol}/xercesImpl.jar"/>
+  <property name="commons-collections.jar" value="${lib.dir.bp}/commons-collections.jar"/>
+  <property name="commons-logging.jar" value="${lib.dir.bp}/commons-logging.jar"/>
+  <property name="commons-beanutils.jar" value="${lib.dir.bp}/commons-beanutils-1.6.1.jar"/>
+  <property name="ojdbc14.jar" value="${lib.dir.db_service}/ojdbc14.jar"/>
+  <property name="quartz.jar" value="${lib.dir.common}/quartz-all-1.6.0.jar"/>
+
+
+  <property name="dist.dir" value="${basedir}/libs" />
+  <property name="lib.dir" value="${basedir}/libs" />
+
+  <property name="common.jar.name" value="fep-common.jar" />
+  <property name="db_service.jar.name" value="fep-db-service.jar" />
+  <property name="socket.jar.name" value="fep-socket.jar" />
+  <property name="monitor.jar.name" value="fep-monitor.jar" />
+  <property name="protocol.jar.name" value="fep-protocol.jar" />
+  
+  <property name="gate.jar.name" value="fep-gate.jar" />
+  <property name="fe.jar.name" value="fep-fe.jar" />
+  <property name="bp.jar.name" value="fep-bp.jar" />
+
+  <property name="build.encoding" value="GBK" />
+  
+  <path id="project.classpath.compile">
+    <fileset dir="${lib.dir.common}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.db_service}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.monitor}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.socket}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.protocol}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.fe}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.bp}">
+      <include name="*.jar" />
+    </fileset>
+    <fileset dir="${lib.dir.gate}">
+      <include name="*.jar" />
+    </fileset>
+    <pathelement path="${bin.common.dir}" />
+    <pathelement path="${bin.db_service.dir}" />
+    <pathelement path="${bin.socket.dir}" />
+    <pathelement path="${bin.monitor.dir}" />
+    <pathelement path="${bin.protocol.dir}" />
+    <pathelement path="${bin.gate.dir}" />
+    <pathelement path="${bin.fe.dir}" />
+    <pathelement path="${bin.bp.dir}" />
+    
+  </path>
+  
+
+  <!-- =================================================================== -->
+  <!-- Clean generated class files                                         -->
+  <!-- =================================================================== -->
+  <target name="clean" description="Clean generated class files">
+    <delete dir="${bin.common.dir}" />
+    <delete dir="${bin.db_service.dir}" />
+    <delete dir="${bin.socket.dir}" />
+    <delete dir="${bin.monitor.dir}" />
+    <delete dir="${bin.protocol.dir}" />
+    <delete dir="${bin.fe.dir}" />
+    <delete dir="${bin.bp.dir}" />
+    <delete dir="${bin.gate.dir}" />
+    <delete dir="${dist.dir}" />
+  </target>
+  
+  <!-- =================================================================== -->
+  <!-- Compile java source file                                            -->
+  <!-- =================================================================== -->
+  <target name="compile-common" description="Compile java file">
+    <mkdir dir="${bin.common.dir}" />
+    <copy todir="${bin.common.dir}">
+      <fileset dir="${src.common.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac destdir="${bin.common.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+      <src path="${src.common.dir}"/>
+    </javac>
+  </target>
+  
+  <target name="compile-socket" depends="compile-common" description="Compile socket file">
+    <mkdir dir="${bin.socket.dir}" />
+    <copy todir="${bin.socket.dir}">
+      <fileset dir="${src.socket.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.socket.dir}" destdir="${bin.socket.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+  
+  <target name="compile-fe" depends="compile-common" description="Compile java file">
+    <mkdir dir="${bin.fe.dir}" />
+    <copy todir="${bin.fe.dir}">
+      <fileset dir="${src.fe.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.fe.dir}" destdir="${bin.fe.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+  
+  <target name="compile-bp" depends="compile-common" description="Compile java file">
+    <mkdir dir="${bin.bp.dir}" />
+    <copy todir="${bin.bp.dir}">
+      <fileset dir="${src.bp.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.bp.dir}" destdir="${bin.bp.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+  
+  
+  <target name="compile-gate" depends="compile-common,compile-socket" description="Compile java file">
+    <mkdir dir="${bin.gate.dir}" />
+    <copy todir="${bin.gate.dir}">
+      <fileset dir="${src.gate.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.gate.dir}" destdir="${bin.gate.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+  
+  <target name="compile-protocol" depends="compile-common" description="Compile java file">
+    <mkdir dir="${bin.protocol.dir}" />
+    <copy todir="${bin.protocol.dir}">
+      <fileset dir="${src.protocol.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.protocol.dir}" destdir="${bin.protocol.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+  
+  <target name="compile-monitor" depends="compile-common" description="Compile java file">
+    <mkdir dir="${bin.monitor.dir}" />
+    <copy todir="${bin.monitor.dir}">
+      <fileset dir="${src.monitor.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.monitor.dir}" destdir="${bin.monitor.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+  
+  
+  
+  <target name="compile-db_service" description="Compile java file">
+    <mkdir dir="${bin.db_service.dir}" />
+    <copy todir="${bin.db_service.dir}">
+      <fileset dir="${src.db_service.dir}">			  
+	<exclude name="**/*.java"/>
+	<exclude name="**/CVS/**/*.*"/>
+	<exclude name="**/.svn/**/*.*"/>
+      </fileset>
+    </copy>
+    <javac srcdir="${src.db_service.dir}" destdir="${bin.db_service.dir}" classpathref="project.classpath.compile"
+    	   source="1.5" target="1.5" debug="true" encoding="${build.encoding}">
+      <include name="**/*.java"/>
+    </javac>
+  </target>
+
+  <!-- =================================================================== -->
+  <!-- Build distributed .jar file for fas server                          -->
+  <!-- =================================================================== -->
+  <target name="build-common-jar" depends="compile-common" description="Build common jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${common.jar.name}" />
+    <jar destfile="${lib.dir}/${common.jar.name}" basedir="${bin.common.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-gate-jar" depends="compile-gate" description="Build gate jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${gate.jar.name}" />
+    <jar destfile="${lib.dir}/${gate.jar.name}" basedir="${bin.gate.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-socket-jar" depends="compile-socket" description="Build socket jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${socket.jar.name}" />
+    <jar destfile="${lib.dir}/${socket.jar.name}" basedir="${bin.socket.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-protocol-jar" depends="compile-protocol" description="Build protocol jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${protocol.jar.name}" />
+    <jar destfile="${lib.dir}/${protocol.jar.name}" basedir="${bin.protocol.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-db_service-jar" depends="compile-db_service" description="Build db_service jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${db_service.jar.name}" />
+    <jar destfile="${lib.dir}/${db_service.jar.name}" basedir="${bin.db_service.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-fe-jar" depends="compile-fe" description="Build fe jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${fe.jar.name}" />
+    <jar destfile="${lib.dir}/${fe.jar.name}" basedir="${bin.fe.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-bp-jar" depends="compile-bp" description="Build bp jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${bp.jar.name}" />
+    <jar destfile="${lib.dir}/${bp.jar.name}" basedir="${bin.bp.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+  <target name="build-monitor-jar" depends="compile-monitor" description="Build monitor jar">
+    <mkdir dir="${lib.dir}" />
+    <delete file="${lib.dir}/${monitor.jar.name}" />
+    <jar destfile="${lib.dir}/${monitor.jar.name}" basedir="${bin.monitor.dir}"
+	 compress="false">
+      <include name="com/**" />
+    </jar>
+  </target>
+
+  <target name="all" depends="compile,build"/>
+  <target name="compile" depends="compile-common,compile-gate,compile-socket,compile-monitor,compile-protocol,compile-db_service,compile-fe,compile-bp"/>
+  <target name="build" depends="compile,build-common-jar,build-gate-jar,build-socket-jar,build-monitor-jar,build-protocol-jar,build-db_service-jar,build-fe-jar,build-bp-jar"/>
+  
+
+  <target name="deploy.fe" depends="all">
+    <mkdir dir="${target.dir}/fe"/>
+    <copy todir="${target.dir}/fe/libs">
+      <fileset dir="${lib.dir.fe}">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${target.dir}/fe" >
+      <fileset dir="${shell.dir}">
+        <include name="startfe.*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${target.dir}/fe/libs">
+      <fileset dir="${lib.dir}">
+        <include name="${monitor.jar.name}"/>
+        <include name="${common.jar.name}"/>
+        <include name="${db_service.jar.name}"/>
+        <include name="${socket.jar.name}"/>
+      </fileset>
+    </copy>
+    <copy todir="${target.dir}/fe/libs" file="${mysql.jar}"/>
+    <copy todir="${target.dir}/fe/libs" file="${commons-lang.jar}"/>
+    <copy todir="${target.dir}/fe/libs" file="${proxool.jar}"/>
+    <copy todir="${target.dir}/fe/libs" file="${proxool-cglib.jar}"/>
+    <copy todir="${target.dir}/fe" file="${lib.dir}/${fe.jar.name}"/>
+    <copy todir="${target.dir}/fe">
+      <fileset dir="${user.config.dir}/fe">
+        <include name="*.properties"/>
+        <include name="*.xml"/>
+      </fileset>
+    </copy>
+
+  </target>
+
+  <target name="deploy.bp" depends="all">
+    <mkdir dir="${target.dir}/bp"/>
+    <copy todir="${target.dir}/bp/libs">
+      <fileset dir="${lib.dir.bp}">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${target.dir}/bp" >
+      <fileset dir="${shell.dir}">
+        <include name="startbp.*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${target.dir}/bp/libs">
+      <fileset dir="${lib.dir}">
+        <include name="${monitor.jar.name}"/>
+        <include name="${common.jar.name}"/>
+        <include name="${db_service.jar.name}"/>
+        <include name="${socket.jar.name}"/>
+        <include name="${protocol.jar.name}"/>
+      </fileset>
+    </copy>
+    <copy todir="${target.dir}/bp/libs" file="${commons-lang.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${commons-beanutils.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${proxool.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${proxool-cglib.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${commons-collections.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${commons-logging.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${ojdbc14.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${commons-dbcp.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${castor-xml.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${xercesImpl.jar}"/>
+    <copy todir="${target.dir}/bp/libs" file="${quartz.jar}"/>
+    <copy todir="${target.dir}/bp" file="${lib.dir}/${bp.jar.name}"/>
+    <copy todir="${target.dir}/bp">
+      <fileset dir="${user.config.dir}/bp">
+        <include name="*.properties"/>
+        <include name="*.xml"/>
+      </fileset>
+    </copy>
+
+  </target>
+
+  <target name="deploy.gate" depends="all">
+    <mkdir dir="${target.dir}/gate"/>
+    <copy todir="${target.dir}/gate/libs">
+      <fileset dir="${lib.dir.gate}">
+        <include name="*.jar"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${target.dir}/gate" >
+      <fileset dir="${shell.dir}">
+        <include name="startgate.*"/>
+      </fileset>
+    </copy>
+
+    <copy todir="${target.dir}/gate/libs">
+      <fileset dir="${lib.dir}">
+        <include name="${monitor.jar.name}"/>
+        <include name="${common.jar.name}"/>
+        <include name="${socket.jar.name}"/>
+      </fileset>
+    </copy>
+    <copy todir="${target.dir}/gate/libs" file="${commons-lang.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${commons-beanutils.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${proxool.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${proxool-cglib.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${commons-collections.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${commons-logging.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${ojdbc14.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${commons-dbcp.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${castor-xml.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${xercesImpl.jar}"/>
+    <copy todir="${target.dir}/gate/libs" file="${quartz.jar}"/>
+    <copy todir="${target.dir}/gate" file="${lib.dir}/${gate.jar.name}"/>
+    <copy todir="${target.dir}/gate">
+      <fileset dir="${user.config.dir}/gate">
+        <include name="*.properties"/>
+        <include name="*.xml"/>
+      </fileset>
+    </copy>
+
+  </target>
+
+
+  <target name="deploy.all" depends="deploy.bp,deploy.fe,deploy.gate"/>
+
+
+</project>

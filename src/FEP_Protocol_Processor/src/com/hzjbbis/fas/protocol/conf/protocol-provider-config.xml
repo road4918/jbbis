@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="GBK"?>
+
+<protocol-provider>
+			
+	<!-- 浙江规约处理器 -->
+	<protocol-handler>
+		<message-type>com.hzjbbis.fk.message.zj.MessageZj</message-type>
+		<handler-class>com.hzjbbis.fas.protocol.zj.handler.PrototalHandlerImpl</handler-class>				
+		<codec-factory>
+			<factory-class>com.hzjbbis.fas.protocol.codec.DefaultMessageCodecFactory</factory-class>
+			<data-config-mapping>com/hzjbbis/fas/protocol/zj/conf/protocol-data-config-mapping.xml</data-config-mapping>
+			<data-config-resource>com/hzjbbis/fas/protocol/zj/conf/protocol-data-config.xml</data-config-resource>
+			<!-- 读中继 消息编码/解码器 -->
+			<codec fun-code="00">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C00MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C00MessageDecoder</decoder-class>
+			</codec>
+			<!-- 读当前数据 消息编码/解码器 -->
+			<codec fun-code="01">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C01MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C01MessageDecoder</decoder-class>
+			</codec>
+			<!-- 读任务数据 消息编码/解码器 -->
+			<codec fun-code="02">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C02MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C02MessageDecoder</decoder-class>
+			</codec>
+			<!-- 读编程日志 消息编码/解码器 -->
+			<codec fun-code="04">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C04MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C04MessageDecoder</decoder-class>
+			</codec>
+			<!-- 实时写对象参数 消息编码/解码器 -->
+			<codec fun-code="07">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C07MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C07MessageDecoder</decoder-class>
+			</codec>
+			<!-- 写对象参数 消息编码/解码器 -->
+			<codec fun-code="08">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C08MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C08MessageDecoder</decoder-class>
+			</codec>
+			<!-- 异常告警 消息编码/解码器 -->
+			<codec fun-code="09">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C09MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C09MessageDecoder</decoder-class>
+			</codec>						
+			<!-- 请求发送端信 消息编码/解码器 -->
+			<codec fun-code="40">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C28MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C28MessageDecoder</decoder-class>
+			</codec>
+		</codec-factory>
+	</protocol-handler>
+						
+	<!-- 浙江配变规约处理器 -->
+	<protocol-handler>
+		<message-type>com.hzjbbis.fas.framework.message.MessageZjpb</message-type>
+		<handler-class>com.hzjbbis.fas.protocol.zjpb.handler.PrototalHandlerImpl</handler-class>				
+		<codec-factory>
+			<factory-class>com.hzjbbis.fas.protocol.codec.DefaultMessageCodecFactory</factory-class>
+			<data-config-mapping>com/hzjbbis/fas/protocol/zjpb/conf/protocol-data-config-mapping.xml</data-config-mapping>
+			<data-config-resource>com/hzjbbis/fas/protocol/zjpb/conf/protocol-data-config.xml</data-config-resource>	
+			<!-- 读中继 消息编码/解码器 -->
+			<codec fun-code="00">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C00MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C00MessageDecoder</decoder-class>
+			</codec>
+			<!-- 读当前数据 消息编码/解码器 -->
+			<codec fun-code="01">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C01MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C01MessageDecoder</decoder-class>
+			</codec>
+			<!-- 读任务数据 消息编码/解码器 -->
+			<codec fun-code="02">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C02MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C02MessageDecoder</decoder-class>
+			</codec>
+			<!-- 读编程日志 消息编码/解码器 -->
+			<codec fun-code="04">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C04MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C04MessageDecoder</decoder-class>
+			</codec>
+			<!-- 实时写对象参数 消息编码/解码器 -->
+			<codec fun-code="07">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C07MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C07MessageDecoder</decoder-class>
+			</codec>
+			<!-- 写对象参数 消息编码/解码器 -->
+			<codec fun-code="08">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C08MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C08MessageDecoder</decoder-class>
+			</codec>
+			<!-- 异常告警 消息编码/解码器 -->
+			<codec fun-code="09">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C09MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C09MessageDecoder</decoder-class>
+			</codec>						
+			<!-- 请求发送端信 消息编码/解码器 -->
+			<codec fun-code="40">
+				<encoder-class>com.hzjbbis.fas.protocol.zj.codec.C28MessageEncoder</encoder-class>
+				<decoder-class>com.hzjbbis.fas.protocol.zj.codec.C28MessageDecoder</decoder-class>
+			</codec>
+		</codec-factory>
+	</protocol-handler>	
+	
+	
+	
+</protocol-provider>

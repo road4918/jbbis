@@ -1,0 +1,400 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Spring--quartz中cronExpression配置说明 - 善待人生，笑对生活... - JavaEye技术网站</title>
+    <meta name="description" content=" Spring--quartz中cronExpression    字段 	  	允许值 	  	允许的特殊字符  秒 	  	0-59 	  	, - * /  分 	  	0-59 	  	, - * /  小时 	  	0-23 	  	, - * /  日期 	  	1-31 	  	, - * ? / L W C  月份 	  	1-12 或者 JAN-DEC 	  	, - * /   ..." />
+    <meta name="keywords" content="  Spring--quartz中cronExpression配置说明" />
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link href="/rss" rel="alternate" title="善待人生，笑对生活..." type="application/rss+xml" /> 
+    <link href="http://www.javaeye.com/stylesheets/blog.css?1226912747" media="screen" rel="stylesheet" type="text/css" />
+<link href="http://www.javaeye.com/stylesheets/themes/blog/blue.css?1200451876" media="screen" rel="stylesheet" type="text/css" />
+    <script src="http://www.javaeye.com/javascripts/application.js?1219629801" type="text/javascript"></script>
+      <link href="http://www.javaeye.com/javascripts/syntaxhighlighter/SyntaxHighlighter.css?1201588027" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.javaeye.com/javascripts/syntaxhighlighter/shCoreCommon.js?1224988575" type="text/javascript"></script>
+  <style>
+    div#main {background-color: transparent; border: 0; padding: 0px; width: 740px;}
+  </style>
+  <link href="http://www.javaeye.com/javascripts/editor/css/ui.css?1222156967" media="screen" rel="stylesheet" type="text/css" />
+  <script src="http://www.javaeye.com/javascripts/editor/compress.js?1225335142" type="text/javascript"></script>
+  </head>	
+  <body>
+    <div id="header">
+      <div id="blog_site_nav">
+  <a href="http://www.javaeye.com/" class="homepage">首页</a>
+  <a href="http://www.javaeye.com/news">新闻</a>
+  <a href="http://www.javaeye.com/forums">论坛</a>
+  <a href="http://www.javaeye.com/blogs">博客</a>
+  <a href="http://job.javaeye.com/">招聘</a>
+  <a href="#" onclick="this.blur();$('more_site_nav').toggle();return false;" id="msna"><u>更多</u> <small>▼</small></a>
+  <div id="more_site_nav" style="display:none;">
+    <a href="http://www.javaeye.com/ask">问答</a>
+    <a href="http://www.javaeye.com/wiki">知识库</a>
+    <a href="http://www.javaeye.com/groups">圈子</a>
+    <a href="http://www.javaeye.com/search">搜索</a>
+  </div>
+</div>
+      <ul id="user_nav">
+      <li class="last"><a href="/signup">注册</a></li>
+    <li><a href="/login">登录</a></li>
+    <li class='highlight'><span>您还没有登录 !</span></li>  
+    
+</ul>
+
+    </div>
+    
+    <div id="page" onclick="$('more_site_nav').hide();">
+      <div id="branding" class="clearfix">
+        <div id="blog_name"><h1><a href="/">善待人生，笑对生活...</a></h1></div>
+        <div id="blog_preview"></div>
+        <div id="blog_domain">永久域名 <a href="/">http://dogstar.javaeye.com</a></div>
+      </div>
+      
+      
+      <div id="content" class="clearfix">
+        <div id="main">
+          
+
+
+          
+
+
+<div class="blog_main"> 
+  <div id="blog_nav">
+    
+    <div id="pre_next">
+      <a href="/blog/116131" class="next">Spring--quartz 结合</a>
+      |
+      <a href="/blog/109124" class="pre">firefox recommend</a>
+    </div>
+  </div>
+  <div class="blog_title">
+    <div class="date"><span class='year'>2007</span><span class='sep_year'>-</span><span class='month'>08</span><span class='sep_month'>-</span><span class='day'>24</span></div>
+    <h3 class='' title=''><a href="/blog/116130">Spring--quartz中cronExpression配置说明</a></h3>
+        
+  </div>
+  
+  <div class="blog_content">
+     Spring--quartz中cronExpression<br /><br /><pre name="code" class="java">
+字段 	  	允许值 	  	允许的特殊字符
+秒 	  	0-59 	  	, - * /
+分 	  	0-59 	  	, - * /
+小时 	  	0-23 	  	, - * /
+日期 	  	1-31 	  	, - * ? / L W C
+月份 	  	1-12 或者 JAN-DEC 	  	, - * /
+星期 	  	1-7 或者 SUN-SAT 	  	, - * ? / L C #
+年（可选） 	  	留空, 1970-2099 	  	, - * /
+</pre><br /><br /><br />The '*' character is used to specify all values. For example, "*" in the minute field means "every minute".<br />“*”字符被用来指定所有的值。如：”*“在分钟的字段域里表示“每分钟”。<br />The '?' character is allowed for the day-of-month and day-of-week fields. It is used to specify 'no specific value'. This is useful when you need to specify something in one of the two fileds, but not the other. See the examples below for clarification.<br />“?”字符只在日期域和星期域中使用。它被用来指定“非明确的值”。当你需要通过在这两个域中的一个来指定一些东西的时候，它是有用的。看下面的例子你就会明白。<br />月份中的日期和星期中的日期这两个元素时互斥的一起应该通过设置一个问号(?)来表明不想设置那个字段<br /><br />The '-' character is used to specify ranges For example "10-12" in the hour field means "the hours 10, 11 and 12".<br />“-”字符被用来指定一个范围。如：“10-12”在小时域意味着“10点、11点、12点”。<br /><br />The ',' character is used to specify additional values. For example "MON,WED,FRI" in the day-of-week field means "the days Monday, Wednesday, and Friday".<br />“,”字符被用来指定另外的值。如：“MON,WED,FRI”在星期域里表示”星期一、星期三、星期五”.<br /><br />The '/' character is used to specify increments. For example "0/15" in the seconds field means "the seconds 0, 15, 30, and 45". And "5/15" in the seconds field means "the seconds 5, 20, 35, and 50". Specifying '*' before the '/' is equivalent to specifying 0 is the value to start with. Essentially, for each field in the expression, there is a set of numbers that can be turned on or off. For seconds and minutes, the numbers range from 0 to 59. For hours 0 to 23, for days of the month 0 to 31, and for months 1 to 12. The "/" character simply helps you turn on every "nth" value in the given set. Thus "7/6" in the month field only turns on month "7", it does NOT mean every 6th month, please note that subtlety.<br /><br />The 'L' character is allowed for the day-of-month and day-of-week fields. This character is short-hand for "last", but it has different meaning in each of the two fields. For example, the value "L" in the day-of-month field means "the last day of the month" - day 31 for January, day 28 for February on non-leap years. If used in the day-of-week field by itself, it simply means "7" or "SAT". But if used in the day-of-week field after another value, it means "the last xxx day of the month" - for example "6L" means "the last friday of the month". When using the 'L' option, it is important not to specify lists, or ranges of values, as you'll get confusing results.<br /><br />L是‘last’的省略写法可以表示day-of-month和day-of-week域，但在两个字段中的意思不同，例如day-of-month域中表示一个月的最后一天，<br />如果在day-of-week域表示‘7’或者‘SAT’，如果在day-of-week域中前面加上数字，它表示一个月的最后几天，例如‘6L’就表示一个月的最后一个<br />星期五，<br /><br />The 'W' character is allowed for the day-of-month field. This character is used to specify the weekday (Monday-Friday) nearest the given day. As an example, if you were to specify "15W" as the value for the day-of-month field, the meaning is: "the nearest weekday to the 15th of the month". So if the 15th is a Saturday, the trigger will fire on Friday the 14th. If the 15th is a Sunday, the trigger will fire on Monday the 16th. If the 15th is a Tuesday, then it will fire on Tuesday the 15th. However if you specify "1W" as the value for day-of-month, and the 1st is a Saturday, the trigger will fire on Monday the 3rd, as it will not 'jump' over the boundary of a month's days. The 'W' character can only be specified when the day-of-month is a single day, not a range or list of days<br />.<br />The 'L' and 'W' characters can also be combined for the day-of-month expression to yield 'LW', which translates to "last weekday of the month".<br /><br />The '#' character is allowed for the day-of-week field. This character is used to specify "the nth" XXX day of the month. For example, the value of "6#3" in the day-of-week field means the third Friday of the month (day 6 = Friday and "#3" = the 3rd one in the month). Other examples: "2#1" = the first Monday of the month and "4#5" = the fifth Wednesday of the month. Note that if you specify "#5" and there is not 5 of the given day-of-week in the month, then no firing will occur that month.<br /><br />The 'C' character is allowed for the day-of-month and day-of-week fields. This character is short-hand for "calendar". This means values are calculated against the associated calendar, if any. If no calendar is associated, then it is equivalent to having an all-inclusive calendar. A value of "5C" in the day-of-month field means "the first day included by the calendar on or after the 5th". A value of "1C" in the day-of-week field means "the first day included by the calendar on or after sunday".<br />关于cronExpression的介绍:<br /><br /><pre name="code" class="java">　
+字段 允许值 允许的特殊字符
+秒 0-59 , - * /
+分 0-59 , - * /
+小时 0-23 , - * /
+日期 1-31 , - * ? / L W C
+月份 1-12 或者 JAN-DEC , - * /
+星期 1-7 或者 SUN-SAT , - * ? / L C #
+年（可选） 留空, 1970-2099 , - * /
+表达式意义
+"0 0 12 * * ?" 每天中午12点触发
+"0 15 10 ? * *" 每天上午10:15触发
+"0 15 10 * * ?" 每天上午10:15触发
+"0 15 10 * * ? *" 每天上午10:15触发
+"0 15 10 * * ? 2005" 2005年的每天上午10:15触发
+"0 * 14 * * ?" 在每天下午2点到下午2:59期间的每1分钟触发
+"0 0/5 14 * * ?" 在每天下午2点到下午2:55期间的每5分钟触发
+"0 0/5 14,18 * * ?" 在每天下午2点到2:55期间和下午6点到6:55期间的每5分钟触发
+"0 0-5 14 * * ?" 在每天下午2点到下午2:05期间的每1分钟触发
+"0 10,44 14 ? 3 WED" 每年三月的星期三的下午2:10和2:44触发
+"0 15 10 ? * MON-FRI" 周一至周五的上午10:15触发
+"0 15 10 15 * ?" 每月15日上午10:15触发
+"0 15 10 L * ?" 每月最后一日的上午10:15触发
+"0 15 10 ? * 6L" 每月的最后一个星期五上午10:15触发
+"0 15 10 ? * 6L 2002-2005" 2002年至2005年的每月的最后一个星期五上午10:15触发
+"0 15 10 ? * 6#3" 每月的第三个星期五上午10:15触发
+每天早上6点
+0 6 * * *
+每两个小时
+0 */2 * * *
+晚上11点到早上8点之间每两个小时，早上八点
+0 23-7/2，8 * * *
+每个月的4号和每个礼拜的礼拜一到礼拜三的早上11点
+0 11 4 * 1-3
+1月1日早上4点
+0 4 1 1 *
+</pre><br /><br />quartz的高级特性不仅如此<br />1 数据库存储<br />2 集群支持<br />3 数据库持久化任务，trigger<br />4 trigger 的停止，运行<br />5 任务的任意添加<br />6 比corntrigger 更详尽的任务安排<br />7 线程的内部数据交换[quote]
+  </div>
+  
+  
+                
+  <div class="blog_bottom">
+    <ul>
+      <li>10:18</li>
+      <li>浏览 (2292)</li>
+            <li><a href="#comments">评论</a> (0)</li>
+      
+      
+      
+      
+      <li class='last'><a href="http://www.javaeye.com/wiki/topic/116130" target="_blank" class="more">相关推荐</a></li>
+    </ul>
+  </div>
+  
+  
+  
+                
+  <div class="blog_comment">
+    <h5>评论</h5>
+    <a id="comments" name="comments"></a>
+     
+    
+    
+  </div>
+  
+  <div class="blog_comment">
+    <h5>发表评论</h5>  
+          
+      <form action="/blog/116130" id="comment_form" method="post" onsubmit="return false;">        
+
+
+  <input type="hidden" id="editor_bbcode_flag"/>
+
+
+
+<div id="editor_main"><textarea class="validate-richeditor bad-words min-length-5" cols="40" id="editor_body" name="comment[body]" rows="20" style="width: 500px; height: 350px;"></textarea></div>
+
+
+<script type="text/javascript">
+  var editor = new Control.TextArea.Editor("editor_body", "bbcode", false);
+</script>
+        <p style="text-align:right;padding-right:30px;">您还没有登录，请<a href='/login'>登录</a>后发表评论 <input class="submit" id="submit_button" name="commit" type="submit" value="提交" /></p>
+      </form>                  
+      <script type="text/javascript">
+          new Validation("comment_form", {immediate: false, onFormValidate: function(result, form){
+  
+            if(confirm('您需要登录以后才能执行这个操作，现在要登录吗？')) window.location.href = '/login';
+  
+      }});
+      </script> 
+      </div>
+</div>
+
+
+<script type="text/javascript">
+dp.SyntaxHighlighter.ClipboardSwf = '/javascripts/syntaxhighlighter/clipboard.swf';
+dp.SyntaxHighlighter.HighlightAll('code', true, true);
+
+fix_image_size($$('div.blog_content img'), 700);
+function quote_comment(link) {
+    quote_user = $(link).previous(0).innerHTML;
+    quote_body = $(link).up().next().innerHTML.stripTags();
+    editor.bbcode_editor.textarea.insertAfterSelection('[quote="'+quote_user+'"]\n' + quote_body + '\n[/quote]\n');
+}
+</script>
+
+
+<div id="search_engine_box" style="display:none;">
+<h2>您正在搜索 cronexpression 配置 <a href="#" onclick="$('search_engine_box').hide();return false;">[ X ]</a></h2>
+<div>
+关键字已在页面上高亮显示<br/>
+您可能对下列文章也感兴趣<ul><li><a href='http://www.javaeye.com/topic/163480' title='Quartz的cronExpression问题' target='_blank'>Quartz的cronExpression问题</a></li><li><a href='http://www.javaeye.com/topic/137263' title='spring  cronExpression 配置' target='_blank'>spring  cronExpression 配置</a></li><li><a href='http://www.javaeye.com/topic/144515' title='[原创]sexy Quartz' target='_blank'>[原创]sexy Quartz</a></li><li><a href='http://www.javaeye.com/topic/99826' title='Spring--quartz中cronExpression配置说明 ' target='_blank'>Spring--quartz中cronExpression ...</a></li><li><a href='http://www.javaeye.com/topic/160905' title='Quartz 在Spring中动态设置cronExpression' target='_blank'>Quartz 在Spring中动态设置cron ...</a></li></ul>
+<a href='http://www.javaeye.com/search?type=all&query=cronexpression 配置' target='_blank'>站内搜索更多 cronexpression 配置</a>
+</div>
+</div>
+<script src="http://www.javaeye.com/javascripts/se_hilite.js?1224057847" type="text/javascript"></script>
+<script type="text/javascript">
+document.observe('dom:loaded',function() {
+  Hilite.hiliteElement($("main"), "cronexpression 配置");
+      document.body.appendChild($('search_engine_box').remove());
+      $('search_engine_box').appear();
+});
+</script>
+      
+        </div>
+        
+        <div id="local">
+          <div class="local_top"></div>
+          <div id="blog_owner">
+            <div id="blog_owner_logo"><a href='http://dogstar.javaeye.com'><img alt="用户头像" src="http://www.javaeye.com/upload/logo/user/17178/05c0ad6d-25fd-4781-ae58-0b671dd84232.jpg?1198040650" title="dogstar的博客: 善待人生，笑对生活..." /></a></div>
+            <div id="blog_owner_name">dogstar</div>
+          </div>
+          <div id="blog_actions">
+            <ul>
+              <li>浏览: 70698 次</li>
+              <li>性别: <img alt="Icon_minigender_1" src="http://www.javaeye.com/images/icon_minigender_1.gif?1192779195" title="男" /></li>
+              
+              <li><img src='/images/status/offline.gif'/></li>              
+              <li><a href="/blog/profile">详细资料</a>  <a href="/blog/guest_book">留言簿</a></li>
+            </ul>
+            <h5>搜索本博客</h5>
+            <form action="/blog/search" method="get">              <input class="text" id="query" name="query" style="margin-left: 10px;width: 110px;" type="text" />
+              <input class="submit" type="submit" value="搜索" />
+            </form>          </div>
+          
+            <div id="user_visits" class="clearfix">
+              <h5>最近访客</h5>
+              
+                <div class="left"><span class="logo"><a href='http://kym.javaeye.com' target='_blank'><img alt="用户头像" src="http://www.javaeye.com/images/user-logo-thumb.gif?1194185304" title="JVK的博客: 剑心博客" /></a></span> <a href='http://kym.javaeye.com' target='_blank'>JVK</a></div>
+              
+                <div class="left"><span class="logo"><a href='http://aegeanmoon.javaeye.com' target='_blank'><img alt="用户头像" src="http://www.javaeye.com/images/user-logo-thumb.gif?1194185304" title="aegeanmoon的博客: " /></a></span> <a href='http://aegeanmoon.javaeye.com' target='_blank'>aegeanmoon</a></div>
+              
+                <div class="left"><span class="logo"><a href='http://sqxxr.javaeye.com' target='_blank'><img alt="用户头像" src="http://www.javaeye.com/images/user-logo-thumb.gif?1194185304" title="sqxxr的博客: sqxxr" /></a></span> <a href='http://sqxxr.javaeye.com' target='_blank'>sqxxr</a></div>
+              
+                <div class="left"><span class="logo"><a href='http://dwwind.javaeye.com' target='_blank'><img alt="用户头像" src="http://www.javaeye.com/images/user-logo-thumb.gif?1194185304" title="dwwind的博客: dwwind" /></a></span> <a href='http://dwwind.javaeye.com' target='_blank'>dwwind</a></div>
+              
+              <div class="left" id="more_user_visits"><a href="/blog/user_visits">&gt;&gt;更多访客</a></div>
+            </div>
+          
+                      <div id="blog_menu">
+              <h5>博客分类</h5>				
+              <ul>
+                <li><a href="/">全部博客 (51)</a></li>
+                
+                  <li><a href="/category/6697">工作 (12)</a></li>
+                
+                  <li class='selected'><a href="/category/6698">学习 (14)</a></li>
+                
+                  <li><a href="/category/6699">生活 (12)</a></li>
+                
+              </ul>
+            </div>
+            
+            
+            <div id="blog_others">
+              <h5>其他分类</h5>
+              <ul>
+                <li><a href="/blog/favorite">我的收藏</a> (11)</li>
+                                <li><a href="/blog/forum">我的论坛帖子</a> (313)</li>
+                <li><a href="/blog/article">我的精华良好贴</a> (0)</li>
+                              </ul>
+            </div>
+            
+            <div id="recent_groups">
+              <h5>最近加入圈子</h5>
+              <ul>
+                
+                  <li><a href="http://javaeye-admin.group.javaeye.com">JavaEye站务讨论</a></li>
+                
+                  <li><a href="http://bigweb.group.javaeye.com">大网络</a></li>
+                
+                  <li><a href="http://lucene-group.group.javaeye.com">lucene爱好者</a></li>
+                
+                  <li><a href="http://xmpp.group.javaeye.com">XMPP机器人</a></li>
+                
+                  <li><a href="http://gentoo.group.javaeye.com">Gentoo Linux</a></li>
+                
+              </ul>
+            </div>
+            
+              <div id="user_links">
+                <h5>链接</h5>
+                <ul>
+                  
+                    <li><a href="http://www.sics.se/~joe/" target="_blank">Joe Armstrong SICS home page</a></li>
+                  
+                    <li><a href="http://yarivsblog.com" target="_blank">Yariv's Blog</a></li>
+                  
+                    <li><a href="http://ocaml.cn/node/211" target="_blank">ocaml中国</a></li>
+                  
+                    <li><a href="http://ihower.idv.tw/blog/" target="_blank">rails restfull</a></li>
+                  
+                    <li><a href="http://progexpr.blogspot.com/" target="_blank">ErlyWeb Tutorial</a></li>
+                  
+                    <li><a href="http://blog.pityathome.com/articles/category/rails" target="_blank">rails blog</a></li>
+                  
+                    <li><a href="http://railsexpress.de/blog/" target="_blank">rials blog2 - express</a></li>
+                  
+                    <li><a href="http://gigix.thoughtworkers.org/" target="_blank">rails blog1</a></li>
+                  
+                </ul>
+              </div>
+            
+            
+                          <div id="month_blogs">
+                <h5>存档</h5>
+                <ul>
+                  
+                    <li><a href="/blog/monthblog/2008-09">2008-09</a> (1)</li>
+                  
+                    <li><a href="/blog/monthblog/2008-08">2008-08</a> (3)</li>
+                  
+                    <li><a href="/blog/monthblog/2008-07">2008-07</a> (3)</li>
+                  
+                  <li><a href="/blog/monthblog_more">更多存档...</a></li>
+                </ul>
+              </div>
+                        <div id="recent_comments">
+              <h5>最新评论</h5>
+              <ul>
+                
+                  <li>
+                    <a href="/blog/227625#comments" title="java位操作">java位操作</a><br/>
+                    good！！<br/>
+                    -- by <a href='http://f32647908.javaeye.com' target='_blank'>f32647908</a>
+                  </li>
+                
+                  <li>
+                    <a href="/blog/50386#comments" title="本地安装rails">本地安装rails</a><br/>
+                    ども　あぃがど　ございます<br/>
+                    -- by <a href='http://acnono.javaeye.com' target='_blank'>acnono</a>
+                  </li>
+                
+                  <li>
+                    <a href="/blog/213940#comments" title="聊天记录">聊天记录</a><br/>
+                    比如说这边有一个遭灯管的基地,当地就有一个网站,技术不咋地,就简单的把各种灯管拍 ...<br/>
+                    -- by <a href='http://sizhefang.javaeye.com' target='_blank'>sizhefang</a>
+                  </li>
+                
+                  <li>
+                    <a href="/blog/177357#comments" title="我们这一代人  ---转">我们这一代人  ---转</a><br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br/>
+                    -- by <a href='http://cynic1982.javaeye.com' target='_blank'>cynic1982</a>
+                  </li>
+                
+                  <li>
+                    <a href="/blog/99335#comments" title="干眼症治疗">干眼症治疗</a><br/>
+                    你的干眼症好了吗？我是06年6月开始得得干眼症，现在我感觉越来越严重了，我现在已 ...<br/>
+                    -- by <a href='http://wangyujava.javaeye.com' target='_blank'>wangyujava</a>
+                  </li>
+                
+              </ul>
+            </div>
+            <div id="comments_top">
+              <h5>评论排行榜</h5>
+              <ul>
+                
+                  <li><a href="/blog/227625">java位操作</a></li>
+                
+                  <li><a href="/blog/213940">聊天记录</a></li>
+                
+                  <li><a href="/blog/177357">我们这一代人  ---转</a></li>
+                
+                  <li><a href="/blog/218635">深入浅出url编码  -- 拷贝自互联网</a></li>
+                
+                  <li><a href="/blog/225572">YUI uploader 使用笔记</a></li>
+                
+              </ul>
+            </div>
+            <div id="rss">
+              <ul>
+                <li><a href="/rss" target="_blank"><img alt="Rss" src="http://www.javaeye.com/images/rss.png?1195448807" /></a></li>
+                <li><a href="http://fusion.google.com/add?feedurl=http://dogstar.javaeye.com/rss" target="_blank"><img alt="Rss_google" src="http://www.javaeye.com/images/rss_google.gif?1197872161" /></a></li>
+                <li><a href="http://www.zhuaxia.com/add_channel.php?url=http://dogstar.javaeye.com/rss" target="_blank"><img alt="Rss_zhuaxia" src="http://www.javaeye.com/images/rss_zhuaxia.gif?1197872161" /></a></li>
+                <li><a href="http://www.xianguo.com/subscribe.php?url=http://dogstar.javaeye.com/rss" target="_blank"><img alt="Rss_xianguo" src="http://www.javaeye.com/images/rss_xianguo.jpg?1206446465" /></a></li>
+                <li><a href="http://www.google.com/search?hl=zh-CN&q=RSS">[什么是RSS?]</a></li>
+              </ul>
+            </div>
+            <div class="local_bottom"></div>
+          
+        </div>
+      </div>
+      
+      <div id="footer" class="clearfix">            	
+        <div id="copyright">
+          <hr/>
+          声明：JavaEye文章版权属于作者，受法律保护。没有作者书面许可不得转载。若作者同意转载，必须以超链接形式标明文章原始出处和作者。<br />
+          &copy; 2003-2008 JavaEye.com.   All rights reserved. 上海炯耐计算机软件有限公司 [ 沪ICP备05023328号 ] 
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>

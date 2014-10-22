@@ -1,0 +1,26 @@
+网关程序结构
+
+网关原理：
+终端－>MessageZj－>GATE.RTU.SocketServer－>上行队列<-如果可以发送，从队列取
+		<- GATE.FE.SocketServer
+前置机－>GateMessage－>GATE.FE.SocketServer－>MessageZj－>
+	->查询AsyncSocketClient->发送
+
+1、终端管理Socket服务器
+	通过Spring配置框架，配置一个服务器，id为 "GATE.RTU.SocketServer"
+	GATE.RTU.SocketServer内部需要配置IO处理器，可以使用SimpleIoHandler对象
+	配置所管理的消息类型messageClass路径，为浙江规约消息。
+2、开发浙江规约相关的事件处理适配器以及GATE.RTU.SocketServer浙江规约消息事件处理器。
+
+3、前置机连接Socket服务器
+	通过Spring配置框架，配置一个服务器，id为 "GATE.FE.SocketServer"
+	GATE.FE.SocketServer内部需要配置IO处理器，可以使用SimpleIoHandler对象
+	配置所管理的消息类型messageClass路径，为网关规约消息。
+
+4、开发网关规约消息类GateMessage、收发网关消息事件适配器、
+	GATE.FE.SocketServer网关规约消息事件处理器
+
+5、 网关消息缓存机制（网关上行队列）先进后出模式，支持消息优先级
+	采用linkedList管理消息列表；初始化队列10000个消息
+	如果队列90%满了，把队列后面的20%滚动到缓存文件； ##只缓存任务和告警；
+	

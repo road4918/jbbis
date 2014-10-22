@@ -1,0 +1,14 @@
+终端命令序号管理（调用存储过程，传入终端逻辑地址，返回此终端当前的帧序号）：
+pkg_fep_service.get_zdzxh(p_zdljdz IN VARCHAR2)
+
+终端操作命令管理：
+终端逻辑地址，帧序号，命令ID,操作时间
+表名：ZD_MLCZGL，操作：插入；查询：通过终端逻辑地址和命令序号查询命令ID
+ZDLJDZ	VARCHAR2(8)	Y			
+ZXH	NUMBER(3)	Y			
+MLID	NUMBER	Y			
+CZSJ	DATE	Y	SYSDATE	
+
+	
+
+
